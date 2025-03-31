@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCredit Limited</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1600x900/?education');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-accent {
+            background: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background: #c0392b;
+        }
+        
+        .main {
+            padding: 3rem 0;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .section-title {
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .col-full {
+            grid-column: span 2;
+        }
+        
+        .loan-options {
+            margin-bottom: 1.5rem;
+        }
+        
+        .loan-option {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .loan-option:hover {
+            background-color: #f5f7fa;
+        }
+        
+        .loan-option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--secondary-color);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .user-details {
+            background-color: #f5f7fa;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-details p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-details strong {
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer p {
+            margin: 0.5rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--primary-color);
+                transition: left 0.3s;
+                z-index: 100;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 2rem;
+            }
+            
+            nav ul li {
+                margin: 0 0 1rem 0;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .col-full {
+                grid-column: span 1;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Edu<span>Credit</span> Limited</div>
+            <div class="hamburger" id="hamburger">☰</div>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="register">Register</a></li>
+                    <li><a href="#" class="nav-link" data-page="login">Login</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Content will be dynamically loaded here -->
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduCredit Limited. All Rights Reserved.</p>
+            <p>Your Trusted Loan Partner</p>
+        </div>
+    </footer>
+
+    <script>
+        // Define interest rates and loan duration options (from Python code)
+        const INTEREST_RATES = {
+            "1": 0.05,  // 1 Week - 5%
+            "2": 0.10,  // 2 Weeks - 10%
+            "3": 0.17,  // 3 Weeks - 17%
+            "4": 0.30   // 1 Month - 30%
+        };
+
+        const LOAN_DURATION_OPTIONS = {
+            "1": "1 Week",
+            "2": "2 Weeks",
+            "3": "3 Weeks",
+            "4": "1 Month"
+        };
+
+        // DOM elements
+        const mainContent = document.getElementById('main-content');
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Local storage keys
+        const USER_STORAGE_KEY = 'educredit_users';
+        const APPLICATION_STORAGE_KEY = 'educredit_applications';
+        const CURRENT_USER_KEY = 'educredit_current_user';
+
+        // Mobile menu toggle
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                nav.classList.remove('active');
+                loadPage(link.dataset.page);
+            });
+        });
+
+        // Initialize local storage if needed
+        function initStorage() {
+            if (!localStorage.getItem(USER_STORAGE_KEY)) {
+                localStorage.setItem(USER_STORAGE_KEY, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(APPLICATION_STORAGE_KEY)) {
+                localStorage.setItem(APPLICATION_STORAGE_KEY, JSON.stringify([]));
+            }
+        }
+
+        // Load page content
+        function loadPage(page) {
+            switch (page) {
+                case 'home':
+                    loadHomePage();
+                    break;
+                case 'register':
+                    loadRegisterPage();
+                    break;
+                case 'login':
+                    loadLoginPage();
+                    break;
+                case 'loan-application':
+                    loadLoanApplicationPage();
+                    break;
+                case 'about':
+                    loadAboutPage();
+                    break;
+                default:
+                    loadHomePage();
+            }
+        }
+
+        // Home page content
+        function loadHomePage() {
+            mainContent.innerHTML = `
+                <section class="hero">
+                    <h1>Welcome to EduCredit Limited</h1>
+                    <p>Your Trusted Loan Partner. We offer quick, affordable loans to help you achieve your educational goals.</p>
+                    <div>
+                        <a href="#" class="btn" id="get-started-btn">Get Started</a>
+                    </div>
+                </section>
+                <section class="main">
+                    <div class="container">
+                        <h2 style="text-align: center; margin-bottom: 2rem;">Why Choose EduCredit Limited?</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Quick Approval</h3>
+                                <p>Get your loan application processed within 24 hours.</p>
+                            </div>
+                            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Flexible Repayment Options</h3>
+                                <p>Choose from various repayment durations that suit your needs.</p>
+                            </div>
+                            <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Focus on Education</h3>
+                                <p>Specifically designed to support your educational journey.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            document.getElementById('get-started-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+                if (currentUser) {
+                    loadLoanApplicationPage();
+                } else {
+                    loadRegisterPage();
+                }
+            });
+        }
+
+        // Register page content
+        function loadRegisterPage() {
+            mainContent.innerHTML = `
+                <section class="main">
+                    <div class="container">
+                        <div class="form-container">
+                            <h2 class="form-title">Register New Account with EduCredit Limited</h2>
+                            <div id="register-alert"></div>
+                            <form id="register-form">
+                                <div class="form-group">
+                                    <label for="username">Choose a username</label>
+                                    <input type="text" id="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Choose a password</label>
+                                    <input type="password" id="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Confirm your password</label>
+                                    <input type="password" id="confirm-password" class="form-control" required>
+                                </div>
+                                
+                                <h3 class="section-title">Personal Information</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name</label>
+                                        <input type="text" id="first-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="surname">Surname</label>
+                                        <input type="text" id="surname" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="other-names">Other Names (if any)</label>
+                                        <input type="text" id="other-names" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="village">Village</label>
+                                        <input type="text" id="village" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="district">District</label>
+                                        <input type="text" id="district" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">Country</label>
+                                        <input type="text" id="country" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postal-address">Postal Address</label>
+                                        <input type="text" id="postal-address" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="age">Age</label>
+                                        <input type="number" id="age" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="employee-id">Employee ID</label>
+                                        <input type="text" id="employee-id" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="school">School Name</label>
+                                        <input type="text" id="school" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="collateral">Collateral Available (e.g., land, car, etc.)</label>
+                                        <input type="text" id="collateral" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="section-title">Next of Kin Details</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="kin-name">Next of Kin's Name</label>
+                                        <input type="text" id="kin-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kin-relationship">Relationship with Next of Kin</label>
+                                        <input type="text" id="kin-relationship" class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-full">
+                                        <label for="kin-contact">Next of Kin's Contact Number</label>
+                                        <input type="text" id="kin-contact" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="text-align: center; margin-top: 1rem;">
+                                    <button type="submit" class="btn">Register</button>
+                                </div>
+                                <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="#" id="login-link">Login here</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Login link event
+            document.getElementById('login-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                loadLoginPage();
+            });
+
+            // Register form submission
+            document.getElementById('register-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+                const confirmPassword = document.getElementById('confirm-password').value.trim();
+                const alertElement = document.getElementById('register-alert');
+                
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    alertElement.innerHTML = `<div class="alert alert-danger">Passwords do not match. Try again.</div>`;
+                    return;
+                }
+                
+                // Check if username exists
+                const users = JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
+                if (users.some(user => user.username === username)) {
+                    alertElement.innerHTML = `<div class="alert alert-danger">Username already exists. Please choose another.</div>`;
+                    return;
+                }
+                
+                // Collect form data
+                const userData = {
+                    username,
+                    password,
+                    firstName: document.getElementById('first-name').value.trim(),
+                    surname: document.getElementById('surname').value.trim(),
+                    otherNames: document.getElementById('other-names').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    village: document.getElementById('village').value.trim(),
+                    district: document.getElementById('district').value.trim(),
+                    country: document.getElementById('country').value.trim(),
+                    postalAddress: document.getElementById('postal-address').value.trim(),
+                    age: document.getElementById('age').value.trim(),
+                    employeeId: document.getElementById('employee-id').value.trim(),
+                    school: document.getElementById('school').value.trim(),
+                    collateral: document.getElementById('collateral').value.trim(),
+                    registrationDate: new Date().toISOString().split('T')[0],
+                    kinName: document.getElementById('kin-name').value.trim(),
+                    kinRelationship: document.getElementById('kin-relationship').value.trim(),
+                    kinContact: document.getElementById('kin-contact').value.trim()
+                };
+                
+                // Save user data
+                users.push(userData);
+                localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users));
+                
+                // Show success message
+                alertElement.innerHTML = `<div class="alert alert-success">Registration successful! You can now log in.</div>`;
+                
+                // Clear form
+                document.getElementById('register-form').reset();
+                
+                // Redirect to login after a delay
+                setTimeout(() => {
+                    loadLoginPage();
+                }, 2000);
+            });
+        }
+
+        // Login page content
+        function loadLoginPage() {
+            mainContent.innerHTML = `
+                <section class="main">
+                    <div class="container">
+                        <div class="form-container">
+                            <h2 class="form-title">EduCredit Limited Login</h2>
+                            <div id="login-alert"></div>
+                            <form id="login-form">
+                                <div class="form-group">
+                                    <label for="login-username">Username</label>
+                                    <input type="text" id="login-username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input type="password" id="login-password" class="form-control" required>
+                                </div>
+                                <div class="form-group" style="text-align: center; margin-top: 1rem;">
+                                    <button type="submit" class="btn">Login</button>
+                                </div>
+                                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" id="register-link">Register here</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Register link event
+            document.getElementById('register-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                loadRegisterPage();
+            });
+
+            // Login form submission
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                const alertElement = document.getElementById('login-alert');
+                
+                // Check credentials
+                const users = JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
+                const user = users.find(user => user.username === username && user.password === password);
+                
+                if (user) {
+                    // Save current user
+                    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+                    
+                    // Show success message
+                    alertElement.innerHTML = `<div class="alert alert-success">Login successful! Your details have been retrieved.</div>`;
+                    
+                    // Redirect to loan application page after a delay
+                    setTimeout(() => {
+                        loadLoanApplicationPage();
+                    }, 1500);
+                } else {
+                    alertElement.innerHTML = `<div class="alert alert-danger">Invalid credentials! Please try again or register.</div>`;
+                }
+            });
+        }
+
+        // Loan application page content
+        function loadLoanApplicationPage() {
+            // Check if user is logged in
+            const currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+            if (!currentUser) {
+                mainContent.innerHTML = `
+                    <section class="main">
+                        <div class="container">
+                            <div class="form-container">
+                                <h2 class="form-title">Access Denied</h2>
+                                <div class="alert alert-danger">Please login to apply for a loan.</div>
+                                <div style="text-align: center; margin-top: 1rem;">
+                                    <a href="#" class="btn" id="login-redirect">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+                
+                document.getElementById('login-redirect').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadLoginPage();
+                });
+                
+                return;
+            }
+            
+            mainContent.innerHTML = `
+                <section class="main">
+                    <div class="container">
+                        <div class="form-container">
+                            <h2 class="form-title">EduCredit Limited Loan Application</h2>
+                            <div id="loan-alert"></div>
+                            
+                            <div class="user-details">
+                                <h3 style="margin-bottom: 1rem;">Your Details</h3>
+                                <p><strong>Name:</strong> ${currentUser.firstName} ${currentUser.surname} ${currentUser.otherNames}</p>
+                                <p><strong>Email:</strong> ${currentUser.email}</p>
+                                <p><strong>Location:</strong> ${currentUser.village}, ${currentUser.district}, ${currentUser.country}</p>
+                                <p><strong>Postal Address:</strong> ${currentUser.postalAddress}</p>
+                                <p><strong>Age:</strong> ${currentUser.age}</p>
+                                <p><strong>Employee ID:</strong> ${currentUser.employeeId}</p>
+                                <p><strong>School:</strong> ${currentUser.school}</p>
+                                <p><strong>Collateral:</strong> ${currentUser.collateral}</p>
+                                <p><strong>Registered On:</strong> ${currentUser.registrationDate}</p>
+                                <p><strong>Next of Kin:</strong> ${currentUser.kinName} (${currentUser.kinRelationship}), Contact: ${currentUser.kinContact}</p>
+                            </div>
+                            
+                            <p style="margin-bottom: 1.5rem;">Is this information correct? If not, please <a href="#" id="update-details-link">update your details</a>.</p>
+                            
+                            <form id="loan-form">
+                                <div class="form-group">
+                                    <label for="loan-amount">Loan Amount Requested</label>
+                                    <input type="number" id="loan-amount" class="form-control" required>
+                                </div>
+                                
+                                <h3 class="section-title">Loan Repayment Duration</h3>
+                                <div class="loan-options" id="loan-options">
+                                    <div class="loan-option" data-option="1">
+                                        <strong>1 Week</strong> - 5% Interest
+                                    </div>
+                                    <div class="loan-option" data-option="2">
+                                        <strong>2 Weeks</strong> - 10% Interest
+                                    </div>
+                                    <div class="loan-option" data-option="3">
+                                        <strong>3 Weeks</strong> - 17% Interest
+                                    </div>
+                                    <div class="loan-option" data-option="4">
+                                        <strong>1 Month</strong> - 30% Interest
+                                    </div>
+                                </div>
+                                <input type="hidden" id="selected-duration" required>
+                                
+                                <div class="form-group" id="repayment-summary" style="display: none; background-color: #f0f8ff; padding: 1rem; border-radius: 5px; margin-top: 1rem;">
+                                    <!-- Repayment summary will be populated by JavaScript -->
+                                </div>
+                                
+                                <div class="form-group" style="text-align: center; margin-top: 1.5rem;">
+                                    <button type="submit" class="btn">Submit Application</button>
+                                </div>
+                            </form>
+                            
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <a href="#" id="logout-btn" style="color: #e74c3c;">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            
+            // Update details link event
+            document.getElementById('update-details-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem(CURRENT_USER_KEY);
+                loadRegisterPage();
+            });
+            
+            // Logout button event
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem(CURRENT_USER_KEY);
+                loadHomePage();
+            });
+            
+            // Duration option selection
+            const loanOptions = document.querySelectorAll('.loan-option');
+            const selectedDurationInput = document.getElementById('selected-duration');
+            const loanAmountInput = document.getElementById('loan-amount');
+            const repaymentSummary = document.getElementById('repayment-summary');
+            
+            loanOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Clear previous selection
+                    loanOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Mark as selected
+                    option.classList.add('selected');
+                    selectedDurationInput.value = option.dataset.option;
+                    
+                    // Update repayment summary if loan amount exists
+                    updateRepaymentSummary();
+                });
+            });
+            
+            // Update repayment summary when loan amount changes
+            loanAmountInput.addEventListener('input', updateRepaymentSummary);
+            
+            function updateRepaymentSummary() {
+                const loanAmount = parseFloat(loanAmountInput.value);
+                const selectedDuration = selectedDurationInput.value;
+                if (!isNaN(loanAmount) && selectedDuration) {
+                    const interestRate = INTEREST_RATES[selectedDuration];
+                    const totalRepayment = loanAmount + (loanAmount * interestRate);
+                    const durationText = LOAN_DURATION_OPTIONS[selectedDuration];
+                    
+                    repaymentSummary.innerHTML = `
+                        <h4 style="margin-bottom: 0.5rem;">Repayment Summary:</h4>
+                        <p><strong>Loan Amount:</strong> $${loanAmount.toFixed(2)}</p>
+                        <p><strong>Interest Rate:</strong> ${(interestRate * 100).toFixed(0)}%</p>
+                        <p><strong>Duration:</strong> ${durationText}</p>
+                        <p><strong>Total Repayment:</strong> $${totalRepayment.toFixed(2)}</p>
+                    `;
+                    repaymentSummary.style.display = 'block';
+                } else {
+                    repaymentSummary.style.display = 'none';
+                }
+            }
+            
+            // Loan form submission
+            document.getElementById('loan-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const loanAmount = parseFloat(loanAmountInput.value);
+                const selectedDuration = selectedDurationInput.value;
+                const alertElement = document.getElementById('loan-alert');
+                
+                if (isNaN(loanAmount) || !selectedDuration) {
+                    alertElement.innerHTML = `<div class="alert alert-danger">Please enter a valid loan amount and select a repayment duration.</div>`;
+                    return;
+                }
+                
+                // Calculate loan details
+                const interestRate = INTEREST_RATES[selectedDuration];
+                const totalRepayment = loanAmount + (loanAmount * interestRate);
+                const applicationDate = new Date().toISOString().split('T')[0];
+                
+                // Create application object
+                const loanApplication = {
+                    username: currentUser.username,
+                    loanAmount,
+                    interestRate,
+                    totalRepayment,
+                    applicationDate,
+                    status: 'Pending',
+                    durationOption: selectedDuration
+                };
+                
+                // Save application
+                const applications = JSON.parse(localStorage.getItem(APPLICATION_STORAGE_KEY));
+                applications.push(loanApplication);
+                localStorage.setItem(APPLICATION_STORAGE_KEY, JSON.stringify(applications));
+                
+                // Show success message
+                alertElement.innerHTML = `<div class="alert alert-success">Thank you for choosing EduCredit Limited. Your application has been received. Please wait for 24 hours for processing.</div>`;
+                
+                // Clear form
+                document.getElementById('loan-form').reset();
+                loanOptions.forEach(opt => opt.classList.remove('selected'));
+                repaymentSummary.style.display = 'none';
+            });
+        }
+
+        // About page content
+        function loadAboutPage() {
+            mainContent.innerHTML = `
+                <section class="main">
+                    <div class="container">
+                        <div class="form-container">
+                            <h2 class="form-title">About EduCredit Limited</h2>
+                            <div style="margin-bottom: 2rem;">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Our Mission</h3>
+                                <p>At EduCredit Limited, we are dedicated to supporting educational advancement through accessible financial solutions. We understand that education is the key to a better future, and we're here to ensure that financial constraints don't stand in the way of your educational goals.</p>
+                            </div>
+                            
+                            <div style="margin-bottom: 2rem;">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Our Services</h3>
+                                <p>We offer quick loan approvals with flexible repayment options designed specifically for educational needs. Whether you need funds for tuition, books, research projects, or other educational expenses, we have you covered.</p>
+                            </div>
+                            
+                            <div style="margin-bottom: 2rem;">
+                                <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Our Promise</h3>
+                                <p>We promise transparency, fair interest rates, and a straightforward application process. Your success is our success, and we are committed to being your trusted partner throughout your educational journey.</p>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 2rem;">
+                                <a href="#" class="btn" id="apply-now-btn">Apply Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            
+            document.getElementById('apply-now-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+                if (currentUser) {
+                    loadLoanApplicationPage();
+                } else {
+                    loadLoginPage();
+                }
+            });
+        }
+
+        // Initialize the app
+        function initApp() {
+            initStorage();
+            loadHomePage();
+        }
+
+        // Start the application
+        initApp();
+    </script>
+</body>
+</html>
